@@ -3,7 +3,7 @@ EventEmitter for deno, API is the same as Nodejs, Have all the APIs of nodejs
 
 ## Useage
 ```ts
-import EventEmitter from "https://deno.land/x/unrar/mod.ts";
+import EventEmitter from "https://deno.land/x/events/mod.ts";
 // or
 import EventEmitter from "https://raw.githubusercontent.com/fuxingZhang/deno-EventEmitter/master/mod.ts";
 
