@@ -1,5 +1,5 @@
 # EventEmitter
-EventEmitter for deno, API is same to Nodejs
+EventEmitter for deno, API is the same as Nodejs, Have all the APIs of nodejs
 
 ## Useage
 ```ts
