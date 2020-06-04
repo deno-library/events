@@ -8,7 +8,7 @@ https://nodejs.org/dist/latest-v12.x/docs/api/events.html#events_class_eventemit
 
 ## Useage
 ```ts
-import EventEmitter from "https://deno.land/x/events/mod.ts";
+import EventEmitter from "https://deno.land/x/events@v1.0.0/mod.ts";
 
 // class
 class A extends EventEmitter {}
