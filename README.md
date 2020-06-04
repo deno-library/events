@@ -1,7 +1,7 @@
 # EventEmitter
 EventEmitter for deno, API is the same as Nodejs, Have all the APIs of nodejs
 
-## Doc
+## nodejs events doc
 ```
 https://nodejs.org/dist/latest-v12.x/docs/api/events.html#events_class_eventemitter
 ```
