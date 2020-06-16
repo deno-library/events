@@ -14,10 +14,10 @@ class EventEmitter {
     if (Number.isInteger(n) || n < 0) {
       const error = new RangeError(
         'The value of "defaultMaxListeners" is out of range. It must be a non-negative integer. Received ' +
-        n +
-        '.'
+          n +
+          ".",
       );
-      throw error
+      throw error;
     }
     this.#defaultMaxListeners = n;
   }
@@ -29,16 +29,16 @@ class EventEmitter {
   emit(eventName: string | symbol, ...args: unknown[]) {
     const listeners = this.events.get(eventName);
     if (listeners === undefined) {
-      if (eventName === 'error') {
+      if (eventName === "error") {
         const error = args[0];
 
         if (error instanceof Error) throw error;
 
-        throw new Error('Unhandled error.');
+        throw new Error("Unhandled error.");
       }
       return false;
     }
-    const copyListeners = [...listeners]
+    const copyListeners = [...listeners];
     for (const listener of copyListeners) {
       listener.apply(this, args);
     }
@@ -50,8 +50,8 @@ class EventEmitter {
     if (!Number.isInteger(n) || n < 0) {
       throw new RangeError(
         'The value of "n" is out of range. It must be a non-negative integer. Received ' +
-        n +
-        '.'
+          n +
+          ".",
       );
     }
     this.maxListeners = n;
@@ -96,7 +96,7 @@ class EventEmitter {
 
     // newListener
     if (eventName !== "newListener" && this.events.has("newListener")) {
-      this.emit('newListener', eventName, listener);
+      this.emit("newListener", eventName, listener);
     }
 
     // warn
@@ -107,7 +107,7 @@ class EventEmitter {
       const warning = new Error(
         `Possible EventEmitter memory leak detected.
          ${this.listenerCount(eventName)} ${eventName.toString()} listeners.
-         Use emitter.setMaxListeners() to increase limit`
+         Use emitter.setMaxListeners() to increase limit`,
       );
       warning.name = "MaxListenersExceededWarning";
       console.warn(warning);
@@ -120,7 +120,7 @@ class EventEmitter {
     const events = this.events;
 
     // Not listening for removeListener, no need to emit
-    if (!events.has('removeListener')) {
+    if (!events.has("removeListener")) {
       if (arguments.length === 0) {
         this.events = new Map();
       } else if (events.has(eventName)) {
@@ -132,17 +132,17 @@ class EventEmitter {
     // Emit removeListener for all listeners on all events
     if (arguments.length === 0) {
       for (const key of events.keys()) {
-        if (key === 'removeListener') continue;
+        if (key === "removeListener") continue;
         this.removeAllListeners(key);
       }
-      this.removeAllListeners('removeListener');
+      this.removeAllListeners("removeListener");
       this.events = new Map();
       return this;
     }
 
     const listeners = events.get(eventName);
     if (listeners !== undefined) {
-      listeners.map(listener => {
+      listeners.map((listener) => {
         this.removeListener(eventName, listener);
       });
     }
@@ -157,15 +157,17 @@ class EventEmitter {
     const list = events.get(eventName);
     if (list === undefined) return this;
 
-    const index = list.findIndex(item => item === listener || (item as WrappedFunction).listener === listener);
+    const index = list.findIndex((item) =>
+      item === listener || (item as WrappedFunction).listener === listener
+    );
 
     if (index === -1) return this;
 
     list.splice(index, 1);
     if (list.length === 0) this.events.delete(eventName);
 
-    if (events.has('removeListener')) {
-      this.emit('removeListener', eventName, listener);
+    if (events.has("removeListener")) {
+      this.emit("removeListener", eventName, listener);
     }
 
     return this;
@@ -176,7 +178,10 @@ class EventEmitter {
     return this;
   }
 
-  private onceWrap(eventName: string | symbol, listener: Function): WrappedFunction {
+  private onceWrap(
+    eventName: string | symbol,
+    listener: Function,
+  ): WrappedFunction {
     const wrapper = function (
       this: {
         eventName: string | symbol;
@@ -196,7 +201,7 @@ class EventEmitter {
       context: this,
     };
     const wrapped = (wrapper.bind(
-      wrapperContext
+      wrapperContext,
     ) as unknown) as WrappedFunction;
     wrapperContext.wrapedListener = wrapped;
     wrapped.listener = listener;
